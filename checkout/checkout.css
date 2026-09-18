@@ -1,5 +1,5 @@
 /* ============================================================
-   Checkout Page — LinkedIn Profile Booster
+   LinkedIn Profile Booster — Landing Page
    Design directive: No gradients, no glassmorphism, no emoji icons,
    no stock illustrations, no centred-template layout.
    ============================================================ */
@@ -12,6 +12,7 @@
 
 :root {
   --color-bg: #ffffff;
+  --color-surface: #f7f7f7;
   --color-text: #1a1a1a;
   --color-muted: #555555;
   --color-border: #d1d1d1;
@@ -21,28 +22,59 @@
   --color-notice-border: #e6c200;
   --color-feature-bg: #f7f7f7;
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --max-width: 640px;
+  --max-width: 720px;
   --radius: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   font-family: var(--font-family);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
+  overflow-x: hidden;
 }
 
-main {
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 48px 24px 64px;
+  padding: 16px 24px;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-/* Brand */
 .brand {
   display: flex;
   align-items: baseline;
@@ -61,15 +93,300 @@ main {
   color: var(--color-muted);
 }
 
-/* Heading */
-h1 {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+.nav-cta {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-/* Feature list */
+.nav-cta:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 56px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-muted {
+  background: var(--color-surface);
+  margin: 0 -24px;
+  padding: 56px 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+.section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+
+.hero {
+  padding: 64px 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero h1 {
+  font-size: 34px;
+  font-weight: 700;
+  max-width: 18ch;
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--color-muted);
+  max-width: 56ch;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.hero-fine-print {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  color: #fff;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Problem ────────────────────────────────────────────── */
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.problem-card {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.problem-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.problem-card p {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ── Solution ───────────────────────────────────────────── */
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.solution-card {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.solution-index {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.solution-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.solution-card p {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ── Benefits ───────────────────────────────────────────── */
+
+.benefits-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.benefits-list h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.benefits-list p {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ── How it works ───────────────────────────────────────── */
+
+.steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.steps-list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps-list h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.steps-list p {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ── Trust / credibility ────────────────────────────────── */
+
+.trust-intro {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+
+.trust-note {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-top: 16px;
+}
+
+/* ── FAQ ────────────────────────────────────────────────── */
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.faq-item summary {
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::before {
+  content: "+";
+  display: inline-block;
+  width: 16px;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.faq-item[open] summary::before {
+  content: "–";
+}
+
+.faq-item p {
+  font-size: 14px;
+  color: var(--color-muted);
+  margin-top: 10px;
+  padding-left: 16px;
+}
+
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Pricing / final CTA (existing checkout box) ───────── */
+
+.pricing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .feature-list {
   list-style: none;
   padding: 16px 18px;
@@ -94,7 +411,6 @@ h1 {
   color: var(--color-muted);
 }
 
-/* Price block */
 .price-block {
   display: flex;
   align-items: baseline;
@@ -114,7 +430,6 @@ h1 {
   color: var(--color-muted);
 }
 
-/* Notice */
 .notice {
   background: var(--color-notice-bg);
   border: 1px solid var(--color-notice-border);
@@ -122,20 +437,12 @@ h1 {
   padding: 14px 16px;
   font-size: 13px;
   color: #4a3800;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.notice strong {
-  font-weight: 600;
 }
 
 .notice a {
   color: inherit;
 }
 
-/* Checkbox */
 .checkbox-label {
   display: flex;
   align-items: flex-start;
@@ -153,7 +460,6 @@ h1 {
   cursor: pointer;
 }
 
-/* Pay button */
 .btn-pay {
   padding: 14px 28px;
   font-size: 15px;
@@ -177,7 +483,30 @@ h1 {
   cursor: not-allowed;
 }
 
-/* Utility */
+.btn-pay:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.nav-cta:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  color: var(--color-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Utility ────────────────────────────────────────────── */
+
 .muted {
   color: var(--color-muted);
 }
@@ -186,10 +515,48 @@ h1 {
   font-size: 12px;
 }
 
-a {
-  color: var(--color-accent);
+/* ── Scroll reveal ──────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-a:hover {
-  color: var(--color-accent-hover);
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .problem-grid,
+  .solution-grid,
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    max-width: none;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    text-align: center;
+  }
 }
