@@ -26,8 +26,13 @@ export default function Logo({ className = "", showTagline = false }) {
         />
       </svg>
       <span className="flex flex-col leading-tight">
-        <span className="text-lg font-extrabold tracking-tight text-ink">
-          Career<span className="text-accent-purple">Craft</span>
+        <span className="flex items-baseline gap-1.5">
+          <span className="text-lg font-extrabold tracking-tight text-ink">
+            Career<span className="text-accent-purple">Craft</span>
+          </span>
+          <span className="text-[11px] font-medium text-ink-muted">
+            by WebElvate
+          </span>
         </span>
         {showTagline && (
           <span className="text-[11px] font-medium text-ink-muted">

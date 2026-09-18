@@ -63,18 +63,21 @@ LinkedIn data ever touched. Every "Sign In" / "Get Started" / "Sign In
 a mockup into a product" rather than "finish a few loose ends" — it's
 a much bigger lift than Part A.
 
-### B1. Decide the strategic question first (not a coding task)
-CareerCraft and WebElvate are currently two separate, unrelated
-LinkedIn-optimization products in the same repo with different brands,
-different pricing (₹199 one-time vs WebElvate's ₹200 one-time), and no
-shared code. Before assigning backend work, decide:
-- Is CareerCraft a rebrand/replacement of WebElvate, a second product,
-  or purely a design exercise that was never meant to ship?
-- **This changes everything below** — if it's a rebrand, most of Part A's
-  backend can likely be reused with new copy/pricing; if it's a second
-  product, it needs its own backend from scratch.
+### B1. Resolved — product relationship
+**CareerCraft is a separate product from the WebElvate LinkedIn
+extension, released under the WebElvate brand** (same pattern as the
+extension's own "by WebElvate" attribution — see `Logo.jsx`). It is
+not a rebrand or replacement of Part A. That means:
+- It needs its own backend, own database, own Razorpay integration —
+  not a shared one with Part A.
+- It can still *reuse Part A's backend code as a starting template*
+  (license/payment/LLM patterns are structurally similar), just
+  deployed as a separate Worker with its own secrets and its own DB.
+- Pricing stays independent: CareerCraft's ₹199 one-time is not the
+  same product or price as WebElvate's ₹200 one-time — don't merge or
+  reconcile these.
 
-### B2. If proceeding — backend needed from scratch
+### B2. Backend needed from scratch (separate from Part A's)
 - [ ] Auth: a real "Sign In" flow (email/OTP, or LinkedIn OAuth if you want to actually pull profile data automatically instead of a browser extension reading it).
 - [ ] Payment: Razorpay one-time ₹199 flow (can likely copy Part A's `create-order`/webhook pattern almost directly).
 - [ ] LinkedIn data import: decide the mechanism — OAuth (LinkedIn's API is heavily restricted for this use case and may not permit it), or a browser extension like WebElvate's (same ToS risk profile as Part A), or manual paste-in of profile text (safest, worst UX).
