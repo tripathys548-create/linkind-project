@@ -1,10 +1,14 @@
-# Ready-to-Paste Antigravity Prompts
+# Ready-to-Paste Antigravity Prompts — WebElvate
 
 Each prompt below is self-contained — paste one at a time, review the
 diff/result before moving to the next. They map to `TODO.md`. Anything
-needing a decision only you can make (account creation, legal content,
-the LinkedIn-import mechanism) is called out inline rather than baked
-into the prompt as an assumption.
+needing a decision only you can make (account creation, legal content)
+is called out inline rather than baked into the prompt as an assumption.
+
+This file covers WebElvate only. CareerCraft is a separate, standalone
+product in its own repo —
+[careercraft-landing](https://github.com/tripathys548-create/careercraft-landing)
+has its own `TODO.md` and its own `docs/antigravity-prompts.md`.
 
 ---
 
@@ -139,119 +143,3 @@ outputs" — read docs/superpowers/specs/2026-09-18-linkedin-audit-extension-des
 footer of checkout/index.html and from the popup's first-run disclaimer.
 ```
 
----
-
-## CareerCraft — Backend scaffold (decide LinkedIn-import mechanism first)
-
-**Before running this prompt**, decide how CareerCraft gets a user's
-LinkedIn data: (a) LinkedIn OAuth (likely too restricted for this use
-case — check LinkedIn's API terms before committing to this), (b) a
-browser extension reading the logged-in user's own profile (same
-pattern and same ToS risk as the WebElvate extension), or (c) the user
-manually pastes their profile text into a form (safest, weakest UX).
-The prompt below assumes you tell Antigravity which one at the start.
-
-```
-Build a new, separate Cloudflare Workers backend for CareerCraft under
-a new careercraft-landing/backend/ directory, structured like
-backend/ in this repo (same file layout: src/lib, src/routes, db/schema.sql,
-test/, wrangler.toml) but for a different product:
-
-- Auth: email + OTP sign-in (send OTP via the same email-provider
-  pattern as backend/src/lib/email.ts). Store sessions as a signed
-  token, not in a database session table, to keep this simple.
-- Payment: a Razorpay one-time ₹199 flow, closely following
-  backend/src/routes/createOrder.ts and paymentWebhook.ts — same
-  idempotency-on-payment-ID pattern, same webhook signature
-  verification in backend/src/lib/razorpay.ts (copy that file as-is,
-  it's provider-agnostic).
-- LinkedIn data capture: implement <THE MECHANISM YOU CHOSE ABOVE>.
-- Do NOT reuse the WebElvate database or Cloudflare Worker — this is a
-  fully separate deployment with its own secrets and its own Neon
-  database, per TODO.md's B1.
-
-Write tests for the auth and payment logic following this repo's
-existing Vitest patterns (see backend/test/ for examples). Do not build
-the LLM rewrite endpoints or PDF rendering yet — that's a separate task.
-```
-
----
-
-## CareerCraft — LLM rewrite endpoints
-
-```
-In careercraft-landing/backend/, add endpoints for rewriting a
-LinkedIn profile's headline, About section, experience, and skills —
-follow the exact pattern in this repo's backend/src/lib/llm.ts
-(callLLM + callLLMJson with the retry-on-malformed-JSON behavior) and
-backend/src/routes/rewriteProfile.ts (validate auth session, check
-rate limit, call LLM, store output, return JSON). Reuse
-backend/src/lib/rateLimit.ts as-is.
-
-Write the system prompts to match CareerCraft's positioning: headline
-optimized for recruiter search, About as a three-part narrative,
-experience bullets with action verb + metric, skills reordered by
-relevance to a target role if one is provided.
-```
-
----
-
-## CareerCraft — PDF template rendering
-
-```
-The landing page at careercraft-landing/src/components/Templates.jsx
-shows 5 illustrative template styles: Fresher, Advanced, Expert,
-Technical, Executive. Build real PDF rendering for these in
-careercraft-landing/backend/src/lib/pdf.ts using pdf-lib (see
-backend/src/lib/pdf.ts in this repo's WebElvate backend for the
-baseline single-template approach — extend that pattern to 5 distinct
-layouts instead of 1). Each template should visually match its
-Templates.jsx preview card's layout logic (e.g. Technical has a
-skills-chip row near the top, Executive is minimal with thin rule
-lines, Fresher is single-column with an accent header bar).
-```
-
----
-
-## CareerCraft — Wire the demo and pricing to the real backend
-
-```
-careercraft-landing/src/components/TransformDemo.jsx currently shows a
-hardcoded canned example on submit, and Pricing.jsx's "Sign In & Pay
-₹199" link goes nowhere. Once the CareerCraft backend (auth, payment,
-LLM endpoints) exists, wire these up:
-
-- TransformDemo.jsx: after a signed-in user pastes their real profile
-  data (via whatever capture mechanism was built), call the real
-  rewrite endpoint instead of showing EXAMPLE. Keep the
-  "this is an example, not your profile" framing ONLY for
-  signed-out visitors — a signed-in, paid user should see their real
-  rewrite, clearly not labeled as an example.
-- Pricing.jsx: wire "Sign In & Pay ₹199" to the real auth + Razorpay
-  Checkout flow, following checkout/checkout.js's pattern in this repo
-  for opening the Razorpay modal.
-
-Don't change the copy or layout of either component — only replace the
-mocked behavior with real calls.
-```
-
----
-
-## CareerCraft — Terms & Privacy, and testimonials
-
-```
-Two content gaps in careercraft-landing/src/components/:
-
-1. Testimonials.jsx has 3 placeholder quotes that were never real
-   customers. Either remove the section entirely, or replace them —
-   I will provide real testimonial text; do not write new ones
-   yourself.
-2. Pricing.jsx, TransformDemo.jsx, and Footer.jsx all link to
-   "Terms & Privacy Policy" via href="#". Build real terms.html and
-   privacy.html pages (or React routes if you've added routing) with
-   the same placeholder-section approach as WebElvate's terms/privacy
-   task — mark every substantive legal clause as
-   "[PLACEHOLDER: needs legal review]" rather than inventing policy
-   language, and only state pure facts about what CareerCraft actually
-   stores/processes once that's built.
-```
