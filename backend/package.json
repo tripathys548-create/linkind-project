@@ -1,0 +1,16 @@
+{
+  "name": "linkedin-audit-backend",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers backend for LinkedIn Profile Audit Extension",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [],
+  "author": "Sameer",
+  "license": "ISC"
+}
