@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinkedIn Profile Booster — ₹200 One-Time</title>
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body>
+
+  <main>
+    <div class="brand">
+      <span class="brand-name">LinkedIn Profile Booster</span>
+      <span class="brand-tag">by WebElvate</span>
+    </div>
+
+    <h1>Rewrite your LinkedIn profile with AI</h1>
+
+    <ul class="feature-list">
+      <li>AI-rewritten Headline, About, and Experience sections</li>
+      <li>Targeted cold-outreach referral DM generator</li>
+      <li>One-time free resume PDF built from your profile</li>
+      <li>One license key, one LinkedIn account — yours forever</li>
+    </ul>
+
+    <div class="price-block">
+      <span class="price">₹200</span>
+      <span class="price-label">One-time payment. No subscription.</span>
+    </div>
+
+    <div class="notice">
+      <strong>Please read before purchasing:</strong>
+      <p>
+        This extension reads your LinkedIn profile using browser automation.
+        This may violate LinkedIn's
+        <a href="https://www.linkedin.com/legal/user-agreement" target="_blank" rel="noopener">
+          User Agreement
+        </a>
+        and can result in <strong>permanent restriction of your LinkedIn account</strong>.
+        This risk is real and not limited to edge cases.
+        NatWest or any affiliated entity is not responsible for account actions
+        taken by LinkedIn in response to your use of this tool.
+        <strong>Purchase only if you accept this risk.</strong>
+      </p>
+    </div>
+
+    <label class="checkbox-label">
+      <input type="checkbox" id="ack" />
+      <span>
+        I have read the above disclaimer and accept all risks associated with
+        using this tool on my LinkedIn account.
+      </span>
+    </label>
+
+    <button id="pay-btn" class="btn-pay" disabled>
+      Pay ₹200 →
+    </button>
+
+    <p class="post-pay muted" id="post-pay-msg" hidden>
+      Payment received. Check your email for your license key within a few minutes.
+    </p>
+
+    <p class="muted small">
+      Key delivery is automated via email. If you don't receive it in 10 minutes,
+      check your spam folder or contact
+      <a href="mailto:support@webelvate.com">support@webelvate.com</a>.
+    </p>
+  </main>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html>
